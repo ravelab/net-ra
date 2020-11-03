@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# set default config if needed
+if [ ! -f net-ra/retroarch.cfg ]; then
+  cp net-ra/default.cfg net-ra/retroarch.cfg
+fi
+
+mkdir -p net-ra-etc/playlists net-ra-etc/rdb net-ra-etc/remaps net-ra-etc/saves net-ra-etc/screenshots net-ra-etc/states net-ra-etc/thumbnails

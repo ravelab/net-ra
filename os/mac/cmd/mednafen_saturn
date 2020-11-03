@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# download if needed
+[ ! -f net-ra/system/mpr-17933.bin ] && curl -s -o net-ra/system/mpr-17933.bin -L https://archive.org/download/OpenEmuBIOSPack/OpenEmu%20BIOS%20Pack.zip/mpr-17933.bin
+[ ! -f net-ra/system/sega_101.bin ] && curl -s -o net-ra/system/sega_101.bin -L https://archive.org/download/OpenEmuBIOSPack/OpenEmu%20BIOS%20Pack.zip/sega_101.bin

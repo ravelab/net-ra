@@ -1,0 +1,17 @@
+#!/bin/bash
+#set -x
+
+emulator=${1}
+coreZipUrl="http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/${emulator}.dylib.zip"
+coreZip=${coreZipUrl##*/}
+coreBin=${coreZip%.*}
+
+if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
+  net-ra/mednafen_saturn
+fi
+
+if [ ! -f net-ra/cores/${coreBin} ]; then
+  curl -s -o net-ra/cores/${coreZip} -L ${coreZipUrl}
+  unzip -o net-ra/cores/${coreZip} -d net-ra/cores
+  rm net-ra/cores/${coreZip}
+fi

@@ -1,0 +1,47 @@
+#!/bin/bash
+#set -x
+
+nickname=$(net-ra/nickname)
+
+romZipUrl=${2}
+romZip=${romZipUrl##*/}
+connectType=${3} # host, alone, or (host-ip-address)
+if [ "$4" ]; then
+  port="--port ${4}"
+fi
+
+emulator=${1}
+net-ra/core ${emulator}
+
+romDir=${romZip%.*}
+if [ ! "${emulator}" = "mednafen_saturn_libretro" ] || [ ! -d "net-ra/roms/${romDir}" ]; then
+  curl -o "net-ra/roms/${romZip}" -L --continue-at - "${romZipUrl/ H/%20H}"
+fi
+
+if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
+  if [ ! -d "net-ra/roms/${romDir}" ]; then
+    unzip -qq -o "net-ra/roms/${romZip}" -d "net-ra/roms/${romDir}"
+    rm "net-ra/roms/${romZip}"
+  fi
+  romZip="${romDir}/${romDir}.cue"
+fi
+
+if [ "${connectType}" = "host" ]; then
+  connectFlag="--host"
+elif [[ "${connectType}" = "alone" ]]; then
+  connectFlag=""
+elif [ ! "${connectType}" ]; then
+  connectFlag=""
+else
+  connectFlag="--connect ${connectType}"
+fi
+
+net-ra/default
+
+rm "net-ra/logs/retroarch.log" 2> /dev/null
+
+net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --libretro net-ra/cores/${emulator}.dylib "net-ra/roms/${romZip}" --nick ${nickname} ${connectFlag} ${port} &
+
+if [ ! "${connectType}" = "host" ]; then exit 0; fi
+
+net-ra/post "${nickname}"

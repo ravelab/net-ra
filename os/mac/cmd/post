@@ -1,0 +1,52 @@
+#!/bin/bash
+
+server=https://NetplayArcade.com
+#server=http://localhost:3000
+
+nickname=${1}
+
+logfile="net-ra/logs/retroarch.log"
+# wait for logfile to exists
+while [ ! -f "$logfile" ] ;
+do
+  :
+done
+
+# wait until game is loaded and netplay hosting is successful
+tail -f "$logfile" | while read line
+do
+   [[ "${line}" == *"[netplay] Port Mapping Successful:"* ]] && pkill -P $$ tail
+done
+
+while IFS= read -r line
+do
+  if [[ "${line}" == *"[netplay] Port Mapping Successful: "* ]]; then
+    address_port=${line##* }
+  fi
+
+  if [[ "${line}" == *"[CORE]: Loading dynamic libretro core from: "* ]]; then
+    emulator=${line##*/}
+    emulator=${emulator%.*}
+  fi
+
+  # [FBNeo] Driver dynwar was successfully started : game's full name is Dynasty Wars (US set 1)
+  if [[ "${line}" == *"game's full name is "* ]]; then
+    title=${line#*full name is }
+  fi
+
+  # No game-specific overrides found at /Users/alan/net-ra/config/Snes9x/Super Bomber Man 3 (Japan).cfg.
+  if [[ "${line}" == *"No game-specific overrides found at "* ]]; then
+    title=${line##*/}
+    title=${title%?????}
+  fi
+done < "$logfile"
+
+# echo "title=$title^host=$nickname^emulator=$emulator^address=$address_port"
+
+token=$(curl -s -X POST -H "Content-Type: text/plain" --data "title=$title^host=$nickname^emulator=$emulator^address-port=$address_port" ${server}/api/games)
+
+echo ""
+echo "Tell you friends to paste and execute the following command in Windows PowerShell or Mac Terminal (after following the installation instruction on $server ):"
+echo ""
+echo "net-ra/join $token"
+echo ""

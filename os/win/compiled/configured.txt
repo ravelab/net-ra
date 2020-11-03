@@ -1,0 +1,9 @@
+git checkout 5e551dd92b79d8127e66939835ea3c2a140c4078
+
+ ./configure --disable-ffmpeg --disable-sdl2 --disable-caca --disable-al --disable-7zip
+make clean
+make -j8
+
+strip -s retroarch.exe
+
+for i in $(seq 3); do for bin in $(ntldd -R *exe | grep -i mingw | cut -d">" -f2 | cut -d" " -f2); do cp -vu "$bin" . ; done; done

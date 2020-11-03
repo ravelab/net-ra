@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# set nickname if needed
+nicknamefile="net-ra/nickname.cfg"
+if [ ! -f "$nicknamefile" ]; then
+  read -p "Choose your nickname for netplay: " nickname
+  echo netplay_nickname = "\"$nickname\"">"$nicknamefile"
+else
+  read -r nickname<"$nicknamefile"
+  nickname=${nickname#*netplay_nickname = }
+  nickname="${nickname:1}"
+  nickname="${nickname%?}"
+fi
+
+echo ${nickname}

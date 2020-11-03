@@ -1,0 +1,60 @@
+#!/bin/bash
+#set -x
+
+server=https://NetplayArcade.com 
+#server=http://localhost:3000
+
+nickname=$(net-ra/nickname)
+net-ra/default
+
+gameInfo=$(curl -s -X GET -H "Content-Type: text/plain" ${server}/api/games?id=${1})
+
+#echo ${gameInfo}
+
+IFS='^'
+for line in ${gameInfo}
+do
+  if [[ "${line}" == *"emulator="* ]]; then
+    emulator=${line#*emulator=}
+  fi
+
+  if [[ "${line}" == *"address-port="* ]]; then
+    addressport=${line#*address-port=}
+    address=${addressport%:*}
+    port=${addressport#*:}
+  fi
+
+  if [[ "${line}" == *"url="* ]]; then
+    url=${line#*url=}
+  fi  
+done
+
+# echo "emulator ${emulator}"
+# echo "address ${address}"
+# echo "port ${port}"
+# echo "url ${url}"
+
+net-ra/core ${emulator}
+
+filename=tmp.zip
+if [ "${emulator}" = "fbneo_libretro" ]; then
+  filename=${url##*/}
+fi
+
+curl -o ${TMPDIR}${filename} -L "${url/ H/%20H}"
+
+if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
+  rom=${url##*/}
+  rom=${rom%.*}
+  unzip -qq -o "${TMPDIR}${filename}" -d "${TMPDIR}tmp"
+  rm "${TMPDIR}${filename}"
+  filename="tmp/${rom}.cue"
+fi
+
+net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --libretro net-ra/cores/${emulator}.dylib ${TMPDIR}${filename} --nick ${nickname} --connect ${address} --port ${port}
+
+if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
+  rm -r "${TMPDIR}tmp"
+else
+  rm ${TMPDIR}${filename}
+fi
