@@ -1,6 +1,5 @@
-setlocal enabledelayedexpansion
 
-@set server=https://NetplayArcade.com
+set server=https://NetplayArcade.com
 :: set server=http://192.168.1.140:3000
 
 call net-ra\default
@@ -12,6 +11,7 @@ FOR /F "usebackq delims=" %%b IN (`\windows\system32\curl -s -X GET -H "Content-
 
 for %%a in ("%gameInfo:^=" "%") do (
   set line=%%~a
+  setlocal enabledelayedexpansion
   if not "!line!"=="!line:emulator=!" (
     set emulator=!line:~9!
   )
