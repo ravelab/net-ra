@@ -6,7 +6,7 @@ wget --continue http://buildbot.libretro.com/stable/1.9.0/windows/x86_64/RetroAr
 7z x RetroArch.7z -onet-ra
 mv net-ra/assets/xmb/monochrome/png png
 mv net-ra/libbz2-1.dll net-ra/libfreetype-6.dll net-ra/libgcc_s_seh-1.dll net-ra/libglib-2.0-0.dll net-ra/libgraphite2.dll net-ra/libharfbuzz-0.dll net-ra/libiconv-2.dll net-ra/libintl-8.dll net-ra/libpcre-1.dll net-ra/libpng16-16.dll net-ra/libstdc++-6.dll net-ra/libwinpthread-1.dll net-ra/zlib1.dll .
-rm -rf net-ra/assets/glui net-ra/assets/nxrgui net-ra/assets/rgui net-ra/assets/switch net-ra/assets/xmb net-ra/database net-ra/overlays net-ra/shaders net-ra/platforms net-ra/*.exe net-ra/*.dll net-ra/bearer net-ra/iconengines net-ra/imageformats net-ra/styles 
+rm -rf net-ra/assets/glui net-ra/assets/nxrgui net-ra/assets/rgui net-ra/assets/switch net-ra/assets/xmb net-ra/database net-ra/overlays net-ra/shaders net-ra/platforms net-ra/*.exe net-ra/*.dll net-ra/filters net-ra/info net-ra/bearer net-ra/iconengines net-ra/imageformats net-ra/styles net-ra/states net-ra/saves net-ra/screenshots 
 mkdir -p net-ra/assets/xmb/monochrome
 mv png net-ra/assets/xmb/monochrome
 cp -r os/win/autoconfig/* net-ra/autoconfig

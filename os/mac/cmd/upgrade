@@ -1,0 +1,9 @@
+#!/bin/bash
+#set -x
+
+DIFF=$(diff <(curl https://s.netplayarcade.com/file/arcade/version.txt 2> /dev/null) net-ra/version.txt)
+if [ "$DIFF" != "" ] 
+then
+    echo "Upgrading net-ra..."
+    curl -L https://s.netplayarcade.com/file/arcade/net-ra.mac -o net-ra.mac; chmod 700 net-ra.mac; ./net-ra.mac -y -o.
+fi
