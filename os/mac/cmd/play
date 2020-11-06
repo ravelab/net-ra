@@ -2,4 +2,4 @@
 #set -x
 
 net-ra/upgrade
-net-ra/play_ $@
+net-ra/play_ "$@"

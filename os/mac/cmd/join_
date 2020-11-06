@@ -37,21 +37,26 @@ done
 net-ra/core ${emulator}
 
 filename=tmp.zip
-if [ "${emulator}" = "fbneo_libretro" ]; then
-  filename=${url##*/}
+
+if [ "$url" ]; then
+  if [ "${emulator}" = "fbneo_libretro" ]; then
+    filename=${url##*/}
+  fi
+
+  escapedUrl=${url/\&/%26}
+  escapedUrl=${escapedUrl/ H/%20H}
+  curl -o ${TMPDIR}${filename} -L "${escapedUrl}"
+
+  if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
+    rom=${url##*/}
+    rom=${rom%.*}
+    unzip -qq -o "${TMPDIR}${filename}" -d "${TMPDIR}tmp"
+    rm "${TMPDIR}${filename}"
+    filename="tmp/${rom}.cue"
+  fi
 fi
 
-curl -o ${TMPDIR}${filename} -L "${url/ H/%20H}"
-
-if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
-  rom=${url##*/}
-  rom=${rom%.*}
-  unzip -qq -o "${TMPDIR}${filename}" -d "${TMPDIR}tmp"
-  rm "${TMPDIR}${filename}"
-  filename="tmp/${rom}.cue"
-fi
-
-net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --libretro net-ra/cores/${emulator}.dylib ${TMPDIR}${filename} --nick ${nickname} --connect ${address} --port ${port}
+net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --load-menu-on-error --libretro net-ra/cores/${emulator}.dylib ${TMPDIR}${filename} --nick ${nickname} --connect ${address} --port ${port}
 
 if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
   rm -r "${TMPDIR}tmp"

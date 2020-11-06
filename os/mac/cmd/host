@@ -2,7 +2,7 @@
 #set -x
 
 net-ra/upgrade
-net-ra/host_ $@
+net-ra/host_ "$@"
 
 
 

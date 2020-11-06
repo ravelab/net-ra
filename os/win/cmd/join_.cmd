@@ -30,27 +30,32 @@ for %%a in ("%gameInfo:^=" "%") do (
 call net-ra\core %emulator%
 
 set filename=tmp.zip
-IF "%emulator%" == "fbneo_libretro" (
-  for %%a in ("%url%") do (
-    set "urlPath=!url:%%~NXa=!"
-    set "filename=%%~NXa"
+
+IF NOT [%url%]==[] (
+  IF "%emulator%" == "fbneo_libretro" (
+    for %%a in ("%url%") do (
+      set "urlPath=!url:%%~NXa=!"
+      set "filename=%%~NXa"
+    )
+  )
+
+  set "escapedUrl=!url:&=%%26!"
+  set "escapedUrl=!escapedUrl: H=%%20H!"
+  \windows\system32\curl -g -o "%TEMP%\%filename%" -L "!escapedUrl!"
+
+  IF "%emulator%" == "mednafen_saturn_libretro" (
+    for %%a in ("%url%") do (
+      set "urlPath=!url:%%~NXa=!"
+      set "rom=%%~NXa"
+    )
+    set rom=!rom:~0,-4!
+    powershell -ExecutionPolicy ByPass -Command "Expand-Archive -Force %TEMP%\%filename% %TEMP%\tmp"
+    del "%TEMP%\%filename%"
+    set filename=tmp\!rom!.cue
   )
 )
 
-\windows\system32\curl -g -o "%TEMP%\%filename%" -L "!url: H=%%20H!"
-
-IF "%emulator%" == "mednafen_saturn_libretro" (
-  for %%a in ("%url%") do (
-    set "urlPath=!url:%%~NXa=!"
-    set "rom=%%~NXa"
-  )
-  set rom=!rom:~0,-4!
-  powershell -ExecutionPolicy ByPass -Command "Expand-Archive -Force %TEMP%\%filename% %TEMP%\tmp"
-  del "%TEMP%\%filename%"
-  set filename=tmp\!rom!.cue
-)
-
-net-ra\retroarch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --libretro net-ra/cores/%emulator%.dll "%TEMP%\%filename%" --nick %nickname% --connect %address% --port %port%
+net-ra\retroarch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --load-menu-on-error --libretro net-ra/cores/%emulator%.dll "%TEMP%\%filename%" --nick %nickname% --connect %address% --port %port%
 
 IF "%emulator%" == "mednafen_saturn_libretro" (
   del /s /q "%TEMP%\tmp" > nul 2>&1

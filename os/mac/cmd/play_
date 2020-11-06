@@ -16,7 +16,9 @@ net-ra/core ${emulator}
 
 romDir=${romZip%.*}
 if [ ! "${emulator}" = "mednafen_saturn_libretro" ] || [ ! -d "net-ra/roms/${romDir}" ]; then
-  curl -o "net-ra/roms/${romZip}" -L --continue-at - "${romZipUrl/ H/%20H}"
+  escapedUrl=${romZipUrl/\&/%26}
+  escapedUrl=${escapedUrl/ H/%20H}
+  curl -o "net-ra/roms/${romZip}" -L --continue-at - "${escapedUrl}"
 fi
 
 if [ "${emulator}" = "mednafen_saturn_libretro" ]; then

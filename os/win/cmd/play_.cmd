@@ -4,10 +4,10 @@ call net-ra\default
 call net-ra\nickname nickname
 
 set romZipUrl=%2
-set romZipUrl=%romZipUrl:"=%
-for %%a in ("%romZipUrl%") do (
-   set "urlPath=!romZipUrl:%%~NXa=!"
-   set "romZip=%%~NXa"
+set romZipUrl=!romZipUrl:"=!
+for %%a in ("!romZipUrl!") do (
+  set "urlPath=!romZipUrl:%%~NXa=!"
+  set "romZip=%%~NXa"
 )
 
 :: host, alone, or (host-ip-address)
@@ -24,8 +24,10 @@ for /f "tokens=1 delims=." %%a in ("%romZip%") do (
 IF "%emulator%" == "mednafen_saturn_libretro" IF EXIST "net-ra\roms\%romDir%" (
   GOTO DoneDownloading
 )
-  
-\windows\system32\curl -g -o "net-ra\roms\%romZip%" -L --continue-at - "!romZipUrl: H=%%20H!"
+
+set "escapedUrl=!romZipUrl:&=%%26!"
+set "escapedUrl=!escapedUrl: H=%%20H!"
+\windows\system32\curl -g -o "net-ra\roms\%romZip%" -L --continue-at - "!escapedUrl!"
 
 :DoneDownloading
 
