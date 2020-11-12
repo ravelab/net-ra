@@ -15,10 +15,10 @@ cp os/mac/cmd/* net-ra
 
 mkdir net-ra/roms net-ra/cores net-ra/filters net-ra/filters/audio net-ra/downloads net-ra/logs
 
+curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/fbneo_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/nestopia_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/picodrive_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/snes9x_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
-curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/fbneo_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/mednafen_saturn_libretro.dylib.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 
 rm dist/net-ra.mac

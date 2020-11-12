@@ -15,11 +15,12 @@ mv *.dll net-ra
 
 mkdir net-ra/roms net-ra/cores
 
+curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/fbneo_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/nestopia_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/picodrive_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/snes9x_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
-curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/fbneo_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/mednafen_saturn_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
+curl -L http://buildbot.libretro.com/nightly/windows/x86_64/latest/mupen64plus_next_libretro.dll.zip -o temp.zip; unzip temp.zip -d net-ra/cores; rm temp.zip
 
 cat os/win/default.cfg >> net-ra/default.cfg
 

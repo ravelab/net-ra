@@ -31,7 +31,7 @@ call net-ra\core %emulator%
 
 set filename=tmp.zip
 
-IF NOT [%url%]==[] (
+IF NOT ["%url%"]==[""] (
   IF "%emulator%" == "fbneo_libretro" (
     for %%a in ("%url%") do (
       set "urlPath=!url:%%~NXa=!"
@@ -41,7 +41,7 @@ IF NOT [%url%]==[] (
 
   set "escapedUrl=!url:&=%%26!"
   set "escapedUrl=!escapedUrl: H=%%20H!"
-  \windows\system32\curl -g -o "%TEMP%\%filename%" -L "!escapedUrl!"
+  \windows\system32\curl -g -o "%TEMP%\!filename!" -L "!escapedUrl!"
 
   IF "%emulator%" == "mednafen_saturn_libretro" (
     for %%a in ("%url%") do (
@@ -49,8 +49,8 @@ IF NOT [%url%]==[] (
       set "rom=%%~NXa"
     )
     set rom=!rom:~0,-4!
-    powershell -ExecutionPolicy ByPass -Command "Expand-Archive -Force %TEMP%\%filename% %TEMP%\tmp"
-    del "%TEMP%\%filename%"
+    powershell -ExecutionPolicy ByPass -Command "Expand-Archive -Force %TEMP%\!filename! %TEMP%\tmp"
+    del "%TEMP%\!filename!"
     set filename=tmp\!rom!.cue
   )
 )
@@ -60,5 +60,5 @@ net-ra\retroarch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cf
 IF "%emulator%" == "mednafen_saturn_libretro" (
   del /s /q "%TEMP%\tmp" > nul 2>&1
 ) ELSE (
-  del "%TEMP%\%filename%"
+  del "%TEMP%\!filename!"
 )

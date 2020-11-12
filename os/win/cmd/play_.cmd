@@ -1,6 +1,12 @@
 setlocal enabledelayedexpansion
 
 call net-ra\default
+
+IF "%1" == "" (
+  net-ra\retroarch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg
+  exit 0
+)
+
 call net-ra\nickname nickname
 
 set romZipUrl=%2

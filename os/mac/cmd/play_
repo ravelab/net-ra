@@ -2,6 +2,12 @@
 #set -x
 
 net-ra/default
+
+if [ ! "${1}" ]; then
+  net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg
+  exit 0; 
+fi
+
 nickname=$(net-ra/nickname)
 
 romZipUrl=${2}
