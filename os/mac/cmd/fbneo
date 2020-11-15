@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# download if needed
+[ ! -f net-ra/system/cchip.zip ] && curl -s -o net-ra/system/cchip.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/cchip.zip
+[ ! -f net-ra/system/decocass.zip ] && curl -s -o net-ra/system/decocass.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/decocass.zip
+[ ! -f net-ra/system/isgsm.zip ] && curl -s -o net-ra/system/isgsm.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/isgsm.zip
+[ ! -f net-ra/system/midssio.zip ] && curl -s -o net-ra/system/midssio.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/midssio.zip
+[ ! -f net-ra/system/neogeo.zip ] && curl -s -o net-ra/system/neogeo.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/neogeo.zip
+[ ! -f net-ra/system/neocdz.zip ] && curl -s -o net-ra/system/neocdz.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/neocdz.zip
+[ ! -f net-ra/system/nmk004.zip ] && curl -s -o net-ra/system/nmk004.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/nmk004.zip
+[ ! -f net-ra/system/pgm.zip ] && curl -s -o net-ra/system/pgm.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/pgm.zip
+[ ! -f net-ra/system/skns.zip ] && curl -s -o net-ra/system/skns.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/skns.zip
+[ ! -f net-ra/system/ym2608.zip ] && curl -s -o net-ra/system/ym2608.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/ym2608.zip

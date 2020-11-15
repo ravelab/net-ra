@@ -6,6 +6,9 @@ coreZipUrl="http://buildbot.libretro.com/nightly/apple/osx/x86_64/latest/${emula
 coreZip=${coreZipUrl##*/}
 coreBin=${coreZip%.*}
 
+if [ "${emulator}" = "fbneo_libretro" ]; then
+  net-ra/fbneo
+fi
 if [ "${emulator}" = "mednafen_saturn_libretro" ]; then
   net-ra/mednafen_saturn
 fi

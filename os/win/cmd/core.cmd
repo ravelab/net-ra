@@ -2,6 +2,10 @@ set emulator=%1
 set coreZipUrl=http://buildbot.libretro.com/nightly/windows/x86_64/latest/%emulator%.dll.zip
 for %%a in (%coreZipUrl:/= %) do set coreZip=%%a
 set coreBin=%coreZip:~0,-4%
+
+IF "%emulator%" == "fbneo_libretro" (
+  call net-ra\fbneo
+)
 IF "%emulator%" == "mednafen_saturn_libretro" (
   call net-ra\mednafen_saturn
 )

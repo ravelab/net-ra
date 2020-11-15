@@ -7,6 +7,7 @@ nickname=$(net-ra/nickname)
 rm "net-ra/logs/retroarch.log" 2> /dev/null
 
 net-ra/Contents/MacOS/RetroArch --config net-ra/retroarch.cfg --appendconfig net-ra/required.cfg --nick ${nickname} --host &
+net-ra/fbneo
 net-ra/mednafen_saturn
 net-ra/post "${nickname}"
 

@@ -1,0 +1,10 @@
+IF NOT EXIST net-ra\system\cchip.zip \windows\system32\curl -s -o net-ra\system\cchip.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/cchip.zip
+IF NOT EXIST net-ra\system\decocass.zip \windows\system32\curl -s -o net-ra\system\decocass.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/decocass.zip
+IF NOT EXIST net-ra\system\isgsm.zip \windows\system32\curl -s -o net-ra\system\isgsm.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/isgsm.zip
+IF NOT EXIST net-ra\system\midssio.zip \windows\system32\curl -s -o net-ra\system\midssio.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/midssio.zip
+IF NOT EXIST net-ra\system\neogeo.zip \windows\system32\curl -s -o net-ra\system\neogeo.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/neogeo.zip
+IF NOT EXIST net-ra\system\neocdz.zip \windows\system32\curl -s -o net-ra\system\neocdz.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/neocdz.zip
+IF NOT EXIST net-ra\system\nmk004.zip \windows\system32\curl -s -o net-ra\system\nmk004.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/nmk004.zip
+IF NOT EXIST net-ra\system\pgm.zip \windows\system32\curl -s -o net-ra\system\pgm.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/pgm.zip
+IF NOT EXIST net-ra\system\skns.zip \windows\system32\curl -s -o net-ra\system\skns.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/skns.zip
+IF NOT EXIST net-ra\system\ym2608.zip \windows\system32\curl -s -o net-ra\system\ym2608.zip -L https://archive.org/download/fbneo/FBNeo/roms.zip/roms/arcade/ym2608.zip
